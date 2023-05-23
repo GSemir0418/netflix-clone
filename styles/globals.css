@@ -1,27 +1,6 @@
+/* 使用Tailwind的基础CSS样式，包括重置浏览器默认样式、设置全局盒模型等 */
 @tailwind base;
+/* 使用Tailwind的组件CSS样式，包括按钮、表格、表单等常用UI组件的样式 */
 @tailwind components;
+/* 使用Tailwind的工具CSS样式，包括类似于margin、padding、text-align等常用CSS样式规则的快捷类名，可以直接应用在HTML标记上 */
 @tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
