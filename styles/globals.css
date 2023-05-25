@@ -4,3 +4,12 @@
 @tailwind components;
 /* 使用Tailwind的工具CSS样式，包括类似于margin、padding、text-align等常用CSS样式规则的快捷类名，可以直接应用在HTML标记上 */
 @tailwind utilities;
+
+body {
+  @apply bg-zinc-900 h-full overflow-x-hidden;
+}
+
+#__next,
+html {
+  @apply h-full
+}
