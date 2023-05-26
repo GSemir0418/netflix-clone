@@ -1,6 +1,6 @@
-import Input from "@/components/Input"
+import Input from '@/components/Input'
 
-const Auth = () => {
+function Auth() {
   return <div
     className="
       bg-[url('/images/hero.jpg')]
