@@ -25,22 +25,23 @@ model User {
   accounts Account[]
 }
 
+// 第三方账户的数据模型
 model Account {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId
-  type String
-  provider String
+  type String // 第三方登录通常为 'oauth'
+  provider String // 'github' | 'google'
   providerAccountId String
   refresh_token String? @db.String
-  access_token String? @db.String
+  access_token String? @db.String // yes
   expires_at Int?
-  token_type String?
-  scope String?
+  token_type String? // 'bearer'
+  scope String? // yes
   id_token String? @db.String
   session_state String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  // 联合唯一约束，表示在此表中两个字段的组合是唯一的
   @@unique([provider, providerAccountId])
 }
 

@@ -1,11 +1,22 @@
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { compare } from 'bcrypt'
+import GithubProvider from 'next-auth/providers/github'
+import GoogleProvider from 'next-auth/providers/google'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prismadb from '@/lib/prismadb'
 
 export default NextAuth({
   providers: [
-    // 自定义一个 Credentials 提供者实例
+    GithubProvider({
+      clientId: process.env.GITHUB_ID || '',
+      clientSecret: process.env.GITHUB_SECRET || '',
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    }),
+    // 自定义一个 Credentials 提供者实例用于邮箱密码登录方式
     Credentials({
       id: 'credentials',
       name: 'Credentials',
@@ -52,6 +63,7 @@ export default NextAuth({
   },
   // 开发环境启用调试模式
   debug: process.env.NODE_ENV === 'development',
+  adapter: PrismaAdapter(prismadb),
   // 配置会话策略为 jwt/database
   session: {
     strategy: 'jwt',

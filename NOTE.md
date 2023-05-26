@@ -39,7 +39,7 @@ id String @id @default(auto()) @map("_id") @db.ObjectId
 @map("_id") 表示数据库中的列名（mongodb中默认主键名称为_id）
 @db.ObjectId 表示在数据库中的数据类型为 ObjectId
 
-npx prisma db push 同步数据库
+npx prisma db push 同步数据库 记得将ip加入至mongodb
 
 ## Setup NextAuth
 npm install next-auth 
@@ -64,3 +64,35 @@ auth.tsx 利用axios发送登录的post请求
 
 使用 router.push 完成登陆成功后路由跳转
 或者自动重定向
+
+### 实现 Google 与 Github 登录
+
+npm i react-icons 安装图标库
+
+env中添加 GITHUB_ID= GITHUB_SECRET= GOOGLE_CLIENT_ID= GOOGLE_CLIENT_SECRET=
+
+在NextAuth的 providers 添加Github和Google的provider
+
+安装 nextauth 和 prisma 的适配器，以便于next的登陆业务自动访问数据库
+npm i @next-auth/prisma-adapter
+在 nextauth 中配置这个 adapter
+
+- 实现github登录
+1. Settings -> Developer settings -> OAuth Apps -> Register a new application
+2. name: 'netflix-clone'
+Homepage URL: 'http://localhost:3000' // 生产环境会改成别的
+Authorization callback URL: 'http://localhost:3000'
+3. 将生成的 Client ID 和 Client Secret 复制到 env 中
+
+- 实现google登录
+1. google 搜索 google developer console
+2. 创建项目
+名称: 'netflix-clone'
+3. 搜索栏搜索 api -> api service -> OAuth consent screen
+4. External ✅ -> create
+name: 'netflix-clone' , email *2
+5. 一路 continue -> done
+6. Credentials -> 点上面的 create credentials -> OAuth Client ID
+type 选择 web application name不管 然后 ADD Authorized redirect URIS
+'http://localhost:3000/api/auth/callback/google'
+7. 复制生成好的 id 和 secret 即可
