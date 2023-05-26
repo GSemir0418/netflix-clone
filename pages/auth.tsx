@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import Input from '@/components/Input'
 
 function Auth() {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+
+  const [variant, setVariant] = useState('login')
+
+  const toggleVariant = useCallback(() => {
+    setVariant(current => current === 'login' ? 'register' : 'login')
+  }, [])
+
   return <div
     className="
       bg-[url('/images/hero.jpg')]
@@ -37,18 +44,22 @@ function Auth() {
           self-center
           mt-2
           lg:w-2/5
+          rounded-md
+          w-full
           "
         >
           <h2 className="text-white text-4xl mb-8 font-semibold">
-            Sign in
+            {variant === 'login' ? 'Sign in' : 'Register'}
           </h2>
           <div className="flex flex-col gap-4">
-            <Input
-              id="name"
-              label='Username'
-              onChange={(e: any) => setName(e.target.value)}
-              value={name}
-            />
+            {variant === 'register' && (
+              <Input
+                id="name"
+                label='Username'
+                onChange={(e: any) => setName(e.target.value)}
+                value={name}
+              />
+            )}
             <Input
               id="email"
               label='Email'
@@ -64,8 +75,26 @@ function Auth() {
               value={password}
             />
           </div>
+          <button className="
+            bg-red-500
+            py-3
+            text-white
+            rounded-md
+            w-full
+            mt-10
+            hover:bg-red-700
+            // 样式切换效果更平滑
+            transition
+          ">
+            {variant === 'login' ? 'Login' : 'Sign up'}
+          </button>
+          <p className="text-neutral-500 mt-12">
+            {variant === 'login' ? 'First time using Netflix?' : 'Already have an account?'}
+            <span onClick={toggleVariant} className='text-white ml-1 hover:underline cursor-pointer'>
+              {variant === 'login' ? 'Create an account' : 'Login'}
+            </span>
+          </p>
         </div>
-
       </div>
     </div>
   </div>
