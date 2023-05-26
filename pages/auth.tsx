@@ -1,7 +1,12 @@
 import { useCallback, useState } from 'react'
+import axios from 'axios'
+import { signIn } from 'next-auth/react'
+
+// import { useRouter } from 'next/router'
 import Input from '@/components/Input'
 
 function Auth() {
+  // const router = useRouter()
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
@@ -11,6 +16,37 @@ function Auth() {
   const toggleVariant = useCallback(() => {
     setVariant(current => current === 'login' ? 'register' : 'login')
   }, [])
+
+  const login = useCallback(async () => {
+    try {
+      // 使用 id 为 credentials 的 provider 进行登录验证
+      await signIn('credentials', {
+        email,
+        password,
+        // 登陆成功后是否重定向至 callbackUrl
+        redirect: true,
+        callbackUrl: '/',
+      })
+      // router.push('/')
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }, [email, password])
+
+  const register = useCallback(async () => {
+    try {
+      await axios.post('/api/register', {
+        email,
+        name,
+        password,
+      })
+      login()
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }, [email, name, password])
 
   return <div
     className="
@@ -85,7 +121,9 @@ function Auth() {
             hover:bg-red-700
             // 样式切换效果更平滑
             transition
-          ">
+          "
+            onClick={variant === 'login' ? login : register}
+          >
             {variant === 'login' ? 'Login' : 'Sign up'}
           </button>
           <p className="text-neutral-500 mt-12">

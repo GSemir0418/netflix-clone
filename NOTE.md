@@ -42,3 +42,25 @@ id String @id @default(auto()) @map("_id") @db.ObjectId
 npx prisma db push 同步数据库
 
 ## Setup NextAuth
+npm install next-auth 
+npm install bcrypt @types/bcrypt
+
+创建 api/auth/[...nextauth].ts
+
+providers是一个数组，其概念就是验证用户身份的不同方式，例如用户名/密码、Github登录、Google登录等，每个provider(提供者)就相当于一个独立的身份验证服务
+### 实现邮箱密码注册登录逻辑
+npm i axios
+auth.tsx 利用axios发送登录的post请求
+在api/register.ts文件中写登录逻辑
+注册逻辑：
+1. 首先限制请求方法，需为 POST，否则返回 405
+2. try catch
+3. 检查用户是否存在，存在则返回 422
+4. 使用 create 创建数据，成功返回 200
+5. 其他错误统一在 catch 中返回 400
+
+- 利用 next-auth/react 提供的 signIn 实现登录
+- 使用自定义Credentials完成登录校验
+
+使用 router.push 完成登陆成功后路由跳转
+或者自动重定向
