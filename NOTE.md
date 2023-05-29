@@ -84,6 +84,8 @@ Homepage URL: 'http://localhost:3000' // 生产环境会改成别的
 Authorization callback URL: 'http://localhost:3000'
 3. 将生成的 Client ID 和 Client Secret 复制到 env 中
 
+登录后会在数据库中查到这个来自github的account，同时创建了user
+
 - 实现google登录
 1. google 搜索 google developer console
 2. 创建项目
@@ -121,3 +123,16 @@ profile page:
 2. 使用 useCurrentUser Hook 获取客户端当前用户数据
 
 tailwind: group 标记，定义在父元素类名中，用于处理相互关联的元素的样式。可以使用伪类选择器（group-hover 或 group-focus）来切换子元素的样式
+
+# Navbar Component
+navbar item 响应式
+父组件包括全部item，默认hidden，lg:flex
+collapse 图标则相反，默认显示，lg:hidden
+
+h-px = height: 1px
+
+图标的展开、下拉样式：
+className中插入三元运算符，根据状态判断其 rotate 角度（180/0）
+`... transition ${visible ? 'rotate-180' : 'rotate-0'}`
+
+滚动一段距离后背景透明：监听滚动事件，超过预设距离后，改变state，从而背景样式（className）
