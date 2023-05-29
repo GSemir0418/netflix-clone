@@ -116,5 +116,8 @@ npm i swr
 5. 在 homepage 中写一个退出登录的方法，测试是否重定向成功
 
 profile page:
-1. 需求：登陆成功后在主页显示用户个人信息，单击进入浏览页面（暂未开发）
-2. 使用 useCurrentUser Hook 获取当前用户数据
+1. 需求：登陆成功后在profile页面显示用户个人信息，单击进入主页面（暂未开发）
+3. 使用 getServerSideProps 获取服务端当前用户登录数据作为路由守卫
+2. 使用 useCurrentUser Hook 获取客户端当前用户数据
+
+tailwind: group 标记，定义在父元素类名中，用于处理相互关联的元素的样式。可以使用伪类选择器（group-hover 或 group-focus）来切换子元素的样式

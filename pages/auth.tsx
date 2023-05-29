@@ -24,7 +24,7 @@ function Auth() {
         password,
         // 登陆成功后是否重定向至 callbackUrl
         redirect: true,
-        callbackUrl: '/',
+        callbackUrl: '/profile',
       })
       // router.push('/')
     }
@@ -139,7 +139,7 @@ function Auth() {
               hover:opacity-80
               transition
             '
-              onClick={() => { signIn('google', { callbackUrl: '/' }) }}
+              onClick={() => { signIn('google', { callbackUrl: '/profile' }) }}
             >
               <FcGoogle size={30}/>
             </div>
@@ -155,7 +155,7 @@ function Auth() {
               hover:opacity-80
               transition
             '
-              onClick={() => { signIn('github', { callbackUrl: '/' }) }}
+              onClick={() => { signIn('github', { callbackUrl: '/profile' }) }}
             >
               <FaGithub size={30}/>
             </div>
