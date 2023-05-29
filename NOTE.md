@@ -96,3 +96,25 @@ name: 'netflix-clone' , email *2
 type 选择 web application name不管 然后 ADD Authorized redirect URIS
 'http://localhost:3000/api/auth/callback/google'
 7. 复制生成好的 id 和 secret 即可
+
+# Protecting Routes & Profiles Page
+
+创建 lib/serverAuth.ts 工具函数，接收带有 jwt 的 req，返回当前登录用户
+
+编写 api/current，利用 serverAuth 获取当前登录用户
+
+创建 lib/fetcher 工具函数，封装 axios 请求，用于 swr
+
+创建 hooks/useCurrentUser，使用 swr 缓存并自动更新 currentUser
+npm i swr 
+
+路由守卫:
+1. pages/index.tsx 编写 getServerSideProps 获取服务端数据
+2. 注意不可以使用我们写的 lib/serverAuth 获取当前用户，因为那是客户端的逻辑，而现在需要写的是服务端的逻辑
+3. 使用 next-auth/react 提供的 getSession 方法，将 context 参数传入，判断 session 数据是否存在，如果不存在则重定向至登录页
+4. 记得最后 return 空的 props 即可
+5. 在 homepage 中写一个退出登录的方法，测试是否重定向成功
+
+profile page:
+1. 需求：登陆成功后在主页显示用户个人信息，单击进入浏览页面（暂未开发）
+2. 使用 useCurrentUser Hook 获取当前用户数据
