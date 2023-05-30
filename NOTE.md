@@ -147,3 +147,10 @@ className中插入三元运算符，根据状态判断其 rotate 角度（180/0�
 2. 根据总条数，生成 [0, 总条数) 区间内的随机索引
 3. 利用 findMany 方法的 skip 配置项，实现随机跳过若干条数据，取其中一条数据
   take 与 skip 一般应用于 分页 需求
+
+
+如果不小心将私密文件上传至 github 那么需要使用git filter-branch 或者 BFG 工具来改写提交历史
+git filter-branch --force --index-filter \
+'git rm --cached --ignore-unmatch PATH-TO-YOUR-FILE-WITH-SENSITIVE-DATA' \
+--prune-empty --tag-name-filter cat -- --all
+git push origin --force --all
