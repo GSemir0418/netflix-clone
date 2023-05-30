@@ -154,3 +154,25 @@ git filter-branch --force --index-filter \
 'git rm --cached --ignore-unmatch PATH-TO-YOUR-FILE-WITH-SENSITIVE-DATA' \
 --prune-empty --tag-name-filter cat -- --all
 git push origin --force --all
+
+h-[56.25vw]
+高度为视口宽度的56.25%
+56.25%是为了创建一个固定宽高比（16：9）的元素 保证不同屏幕尺寸下的呈现效果
+
+drop-shadow-xl
+在元素周围添加一个较大尺寸（xl）的 box-shadow
+阴影颜色 text-[color]-300
+阴影模糊度 blur-md
+阴影偏移 offset-y-4
+
+object-cover
+适用于图像或视频，根据父元素宽高比进行缩放或裁剪，以填满父元素
+
+关于响应式的属性写在一行，增强可读性
+className='
+  text-white
+  text-[12px] md:text-lg
+  mt-3 md:mt-8
+  w-[90%] md:w-[80%] lg:w-[50%]
+  drop-shadow-xl
+'
