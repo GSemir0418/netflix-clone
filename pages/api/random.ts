@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // 仅利用 serverAuth 鉴定权限
-    await serverAuth(req)
+    await serverAuth(req, res)
 
     // 获取全部电影数据条数
     const movieCount = await prismadb.movie.count()
