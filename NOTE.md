@@ -225,7 +225,10 @@ prismadb.user.update({
 })
 ```
 
+next-auth 文档更新了 使用 getServerSession 替换 getSession，参数增加了 res
+
 axios 发起 delete 请求与 post 请求的区别
 因为我们api的设计，使得前端切换喜欢与不喜欢的方法变的更容易，只需根据状态发起不同请求即可
+bug：delete 没有 req.body，因此换成 Patch 了（或者将 id 写在 url 上作为 param）
 
 条件渲染组件的方式

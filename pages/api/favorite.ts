@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json(user)
     }
 
-    if (req.method === 'DELETE') {
+    if (req.method === 'PATCH') {
       const { currentUser } = await serverAuth(req, res)
 
       const { movieId } = req.body
