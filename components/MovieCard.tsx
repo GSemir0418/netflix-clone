@@ -1,7 +1,10 @@
 import { BsFillPlayFill } from 'react-icons/bs'
+import { useRouter } from 'next/router'
 import FavoriteButton from './FavoriteBtn'
 
 const MovieCard: React.FC<{ data: Record<string, any> }> = ({ data }) => {
+  const router = useRouter()
+
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
       {/* 展示的 img 元素 */}
@@ -79,7 +82,7 @@ const MovieCard: React.FC<{ data: Record<string, any> }> = ({ data }) => {
                 transition
                 hover:bg-neutral-300
               ">
-              <BsFillPlayFill size={30} />
+              <BsFillPlayFill size={30} onClick={() => { router.push(`/watch/${data?.id}`) } } />
             </div>
             <FavoriteButton movieId={data?.id} />
           </div>

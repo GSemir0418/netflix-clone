@@ -231,4 +231,15 @@ axios 发起 delete 请求与 post 请求的区别
 因为我们api的设计，使得前端切换喜欢与不喜欢的方法变的更容易，只需根据状态发起不同请求即可
 bug：delete 没有 req.body，因此换成 Patch 了（或者将 id 写在 url 上作为 param）
 
-条件渲染组件的方式
+条件渲染组件的方式 Icon = xxx?A :B  ===> <Icon>
+
+# Video Player
+next 动态路由 无论页面和api 同理
+api: req.query  
+页面：router.query
+
+前后端的权限校验
+前：页面 通过 getServerSideProps 守卫
+getServerSideProps => getSession(context) => session | null => return redirect | return props {}
+后：接口 逻辑最前加 getServerAuth 方法 成功就继续 失败就400
+getServerSession(req, res, authOptions) => session | null => userInfo | null => return currentUser | throw Error
