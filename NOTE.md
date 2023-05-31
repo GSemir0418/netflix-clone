@@ -203,3 +203,29 @@ list 组件使用 grid 布局
 2. 将父元素 div 标记为 group，通过 group-hover 伪类为子元素添加样式（opacity scale translate）
 
 rounded-t-md: border 左上右上的 radius
+
+
+# Favorite Api
+包括添加喜欢与删除喜欢两个功能，仅使用一个 handler(api/favorite)，根据 req.method 区分这两个功能
+
+获取全部喜欢项，使用新的接口 GET api/favorites
+
+prisma 更新数据的方式
+更新对应 id 的某个数组类型的值(push, prepend, append, set)
+```
+prismadb.user.update({
+  where: {
+    email: currentUser.email || '',
+  },
+  data: {
+    favoriteIds: {
+      push: movieId,
+    },
+  },
+})
+```
+
+axios 发起 delete 请求与 post 请求的区别
+因为我们api的设计，使得前端切换喜欢与不喜欢的方法变的更容易，只需根据状态发起不同请求即可
+
+条件渲染组件的方式
