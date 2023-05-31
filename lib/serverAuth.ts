@@ -5,7 +5,7 @@ import prismadb from '@/lib/prismadb'
 async function serverAuth(req: NextApiRequest) {
   const session = await getSession({ req })
 
-  // sesstion be like {
+  // session be like {
   //   user: { name: 'test', email: 'test@gmail.com', image: '' },
   //   expires: '2023-06-28T05:11:30.563Z'
   // }
