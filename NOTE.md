@@ -243,3 +243,19 @@ api: req.query
 getServerSideProps => getSession(context) => session | null => return redirect | return props {}
 后：接口 逻辑最前加 getServerAuth 方法 成功就继续 失败就400
 getServerSession(req, res, authOptions) => session | null => userInfo | null => return currentUser | throw Error
+
+# Info Modal hook
+
+npm i zustand
+
+modal props
+
+tailwind + props ?= isModalShow
+
+why so many div?
+
+what does the first div do?
+
+List the purpose of each div:
+
+how to open shade in & out
