@@ -176,3 +176,30 @@ className='
   w-[90%] md:w-[80%] lg:w-[50%]
   drop-shadow-xl
 '
+# Movie List & Movie Card Component & Cool Hover Effect
+## Movie List
+list 组件使用 grid 布局
+简单的响应式grid布局
+```
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+  <div class="bg-gray-200 p-4">内容1</div>
+  ...
+  <div class="bg-gray-200 p-4">内容6</div>
+</div>
+```
+长宽不等的网格布局：配合网格元素的 col-span-x 或 row-span-x
+```
+<div class="grid grid-cols-3 grid-rows-2 gap-4">
+  <div class="bg-gray-200 p-4">内容1</div>
+  <div class="bg-gray-200 p-4">内容2</div>
+  <div class="bg-gray-200 p-4 col-span-2 row-span-2">内容3</div>
+  <div class="bg-gray-200 p-4">内容4</div>
+</div>
+```
+如果不指定 col-span 后面的数量，以 tw 默认配置为准（1）
+## movie card
+需求：官网的电影卡片动效，即鼠标 hover poster 时弹出带有操作选项与电影信息的新 poster
+1. 两个元素，通过 opacity 控制显隐，交替显示
+2. 将父元素 div 标记为 group，通过 group-hover 伪类为子元素添加样式（opacity scale translate）
+
+rounded-t-md: border 左上右上的 radius
