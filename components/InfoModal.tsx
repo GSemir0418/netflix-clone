@@ -22,6 +22,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   }, [visible])
 
   const handleClose = useCallback(() => {
+    // why close it twice
     setIsVisible(false)
     setTimeout(() => {
       onClose()
@@ -42,6 +43,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
         bg-opacity-80
         flex
         justify-center
+        items-center
         overflow-x-hidden
         overflow-y-auto
         fixed
@@ -49,7 +51,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
       '
     >
 
-      {/* Modal Body */}
+      {/* Modal Body Position */}
       <div
         className='
           relative
@@ -60,9 +62,10 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
           overflow-hidden
         '
       >
+        {/* Modal Body Content */}
         <div
           className={`
-            ${isVisible ? 'scale-100' : 'scale-0'}
+            ${isVisible ? 'scale-100' : 'scale-0'} // 打开/关闭的动效
             transform
             duration-300
             relative
@@ -71,6 +74,8 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
             drop-shadow-md
           `}
         >
+
+          {/* Video & Actions */}
           <div
             className='relative h-96'
           >
@@ -85,6 +90,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
 
             {/* close icon */}
             <div
+              onClick={handleClose}
               className='
                 cursor-pointer
                 absolute
