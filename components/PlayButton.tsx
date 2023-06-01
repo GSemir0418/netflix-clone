@@ -2,13 +2,13 @@ import { useRouter } from 'next/router'
 import { BsFillPlayFill } from 'react-icons/bs'
 
 interface PlayButtonProps {
-    movieId: string
+  movieId: string
 }
 
 const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
-    const router = useRouter()
+  const router = useRouter()
 
-    return (
+  return (
         <button
             onClick={() => router.push(`/watch/${movieId}`)}
             className="
@@ -29,6 +29,6 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
             <BsFillPlayFill size={25} className='mr-1' />
             Play
         </button>
-    )
+  )
 }
 export default PlayButton
