@@ -248,14 +248,40 @@ getServerSession(req, res, authOptions) => session | null => userInfo | null => 
 
 npm i zustand
 
-modal props
+- modal props
+visible 控制显隐
+onClose 关闭弹窗的回调
 
-tailwind + props ?= isModalShow
+- inset-0
+内外边距都是0
 
-why so many div?
+- setTimeout onClose
+setIsVisible 实际控制的是 Modal Content 的 scale 过渡动画的状态
+而 onClose 实际控制的是 Modal 组件的返回值(组件/null)，一旦 onClose 执行了，那么组件会即刻消失
+因此使用 setTimeout 延时执行 onClose，延时时长与 Modal Content 元素的 transition duration 相同(300ms)，这样可以实现更加平滑的弹窗关闭效果，提供更好的用户体验。
 
-what does the first div do?
+- why InfoModal hold its own state? why dont it use zustand store directly?
+组件内部维护 isVisible state，初始值为 props 接收到的 isOpen，内部使用useEffect同步 props 与 state
+这里表面上看有两个 state 来完成 Modal 的显隐控制
+实际上 isVisible 仅用于控制 Modal Content 元素的 scale 过渡动效
+```
+{/* Modal Body Content */}
+<div
+  className={`
+    ${isVisible ? 'scale-100' : 'scale-0'}
+    transform
+    duration-300
+    ...
+  `}
+>
+```
+两个变量搭配，能够使弹窗显隐不受props限制，且可以提供更多的灵活性，使组件能够更好地适应各种场景和需求。
+- how to open shade in & out
+使用 timeout 结合 visible & isOpen & scale transition
 
-List the purpose of each div:
-
-how to open shade in & out
+# deploy
+1. vercel 添加 github 仓库，一键导入
+2. 设置环境变量
+3. 重写 build 命令：npx prisma generate && next build
+4. 记得去 github 和 google 的 Oauth 设置中修改或添加 callbackUrl
+5. done

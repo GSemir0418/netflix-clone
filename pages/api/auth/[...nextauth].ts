@@ -64,6 +64,7 @@ export const authOptions: AuthOptions = {
   },
   // 开发环境启用调试模式
   debug: process.env.NODE_ENV === 'development',
+  // 适配器，以便于next的登陆业务自动访问数据库
   adapter: PrismaAdapter(prismadb),
   // 配置会话策略为 jwt/database
   session: {

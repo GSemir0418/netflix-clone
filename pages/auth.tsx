@@ -78,9 +78,8 @@ function Auth() {
           py-16
           self-center
           mt-2
-          lg:w-2/5
           rounded-md
-          w-full
+          w-full lg:w-2/5
           "
         >
           <h2 className="text-white text-4xl mb-8 font-semibold">

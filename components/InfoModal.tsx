@@ -22,7 +22,6 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
   }, [visible])
 
   const handleClose = useCallback(() => {
-    // why close it twice
     setIsVisible(false)
     setTimeout(() => {
       onClose()
@@ -51,7 +50,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
       '
     >
 
-      {/* Modal Body Position */}
+      {/* Modal Body Container for Position */}
       <div
         className='
           relative
@@ -88,7 +87,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ visible, onClose }) => {
               className='w-full brightness-[60%] object-cover h-full'
             />
 
-            {/* close icon */}
+            {/* Close Icon */}
             <div
               onClick={handleClose}
               className='
