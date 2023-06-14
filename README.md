@@ -27,6 +27,13 @@
 - 使用 React SWR 进行数据请求与重新验证
 - 使用 Zustand 进行状态管理（Modal 组件）
 
+### Why Nextjs?
+
+1. [官方力推](https://react.dev/learn/start-a-new-react-project#nextjs-app-router)
+2. [大势所趋](https://2022.stateofjs.com/zh-Hans/libraries/rendering-frameworks/)
+3. 开箱即用
+4. SSR
+
 ## Prisma & MongoDB
 
 ### Prisma 初始化
@@ -137,6 +144,96 @@ const user = await prismadb.user.update({
 - 生产环境的 .env.production 不应在本地维护
 
 ## API 开发
+
+- 约定式路由，例如 pages/api/register.ts 会被映射为 `api/register`
+
+- 默认导出名称为 `handler` 的异步函数，函数接收两个参数，分别是 request 和 response 对象
+
+### Request
+
+- `req.cookies` - request 中的 cookie 对象，默认 {}
+- `req.query` - request 中的查询字符串对象，默认 {}
+- `req.body` - 根据 content-type 解析出来的请求体对象 | null
+
+### Response
+
+- `res.status(code)` - 设置响应状态码
+- `res.json(body)` - 发送 JSON 响应，并设置 Content-Type 头为 `application/json`，body 须是可序列化的对象
+- `res.send(body)` - 发送 HTTP 响应，body 可以是任意类型的参数，数字、字符串、对象或 Buffer
+- `res.end()` - 手动结束请求响应周期。json 和 send 方法自动结束，无需调用；而 write 或者 status 等方法则需要手动调用 end 方法结束相应周期
+- res 方法均支持链式调用
+
+### Favorite API
+
+favorite api 提供“增加喜爱项”和“移除喜爱项”两个功能
+
+参考 RESTFUL 规范，将 favorite 作为资源，通过请求方法（POST | PATCH）区分以上两种功能
+```ts
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    if (req.method === 'POST') {
+      const { currentUser } = await serverAuth(req, res)
+
+      const { movieId } = req.body
+
+      const existingMovie = await prismadb.movie.findUnique({
+        where: {
+          id: movieId,
+        },
+      })
+      if (!existingMovie)
+        throw new Error('Invalid ID')
+
+      const user = await prismadb.user.update({
+        where: {
+          email: currentUser.email || '',
+        },
+        data: {
+          favoriteIds: {
+            push: movieId,
+          },
+        },
+      })
+
+      return res.status(200).json(user)
+    }
+
+    if (req.method === 'PATCH') {
+      const { currentUser } = await serverAuth(req, res)
+
+      const { movieId } = req.body
+
+      const existingMovie = await prismadb.movie.findUnique({
+        where: {
+          id: movieId,
+        },
+      })
+
+      if (!existingMovie)
+        throw new Error('Invalid ID')
+
+      const updateFavoriteIds = without(currentUser.favoriteIds, movieId)
+
+      const updatedUser = await prismadb.user.update({
+        where: {
+          email: currentUser.email || '',
+        },
+        data: {
+          favoriteIds: updateFavoriteIds,
+        },
+      })
+
+      return res.status(200).json(updatedUser)
+    }
+
+    return res.status(405).end()
+  }
+  catch (error) {
+    console.error(error)
+    return res.status(400).end()
+  }
+}
+```
 
 ## TailwindCSS
 
