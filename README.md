@@ -6,6 +6,7 @@
 
 - 源码：https://github.com/GSemir0418/netflix-clone
 - 网址：https://netflix-clone-sigma-swart-93.vercel.app/
+- 测试账号：test@test 密码：test
 
 ### 技术栈
 
